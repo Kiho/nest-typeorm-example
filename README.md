@@ -11,7 +11,8 @@ Example usage of [TypeORM](https://github.com/typeorm/typeorm) with the [Nest](h
 - TypeORM is configured to find and manage all entities under `src/modules`, so just name your entities `anything.entity.ts` and TypeORM will pick them up. 
 - TypeORM's autosync is on by default so the db schema will be updated automatically by TypeORM.
 
-### Example
+### Examples
+Service:
 ```typescript
 @Component()
 export class EmployeesService implements Service<Employee> {
@@ -24,8 +25,13 @@ export class EmployeesService implements Service<Employee> {
     public async getAll(): Promise<Employee[]> {
         return (await this.repository).find();
     }
+    
+    ...
 }
+```
 
+Controller:
+```typescript
 @Controller()
 export class EmployeesController {
     private employeesService: Service<Employee>;
@@ -39,6 +45,8 @@ export class EmployeesController {
         const employees = await this.employeesService.getAll();
         res.status(HttpStatus.OK).json(employees);
     }
+    
+    ...
 }
 ```
 
