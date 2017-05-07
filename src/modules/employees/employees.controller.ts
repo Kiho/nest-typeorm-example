@@ -32,7 +32,7 @@ export class EmployeesController {
 
     @Get('employees/:id')
     public async getEmployee(@Request() req, @Response() res: express.Response, @Param('id') id) {
-        // EmployeeFindMiddleware attaches the found employee to the request or returns a 401
+        // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
 
         res.status(HttpStatus.OK).json(existingEmployee);
@@ -41,7 +41,7 @@ export class EmployeesController {
     // U
     @Put('employees/:id')
     public async replaceEmployee(@Request() req, @Response() res: express.Response, @Body('employee') employee, @Param('id') id) {
-        // EmployeeFindMiddleware attaches the found employee to the request or returns a 401
+        // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
         // in this case, we don't need to interact with it.
 
@@ -52,7 +52,7 @@ export class EmployeesController {
     // D
     @Delete('employees/:id')
     public async deleteEmployee(@Request() req, @Response() res: express.Response, @Param('id') id) {
-        // EmployeeFindMiddleware attaches the found employee to the request or returns a 401
+        // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
 
         const deletedEmployee = await this.employeesService.remove(existingEmployee);
