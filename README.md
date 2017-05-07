@@ -9,7 +9,7 @@ Example usage of [TypeORM](https://github.com/typeorm/typeorm) with the [Nest](h
 - Additional ORM's such as Mongoose could be implemented in this module easily by simply defining additional services which manage configuration and connection. 
 - The interface `Service<T>` is provided for loose coupling between controllers and services, so you'll see use of it in the examples.
 - TypeORM is configured to find and manage all entities under `src/modules`, so just name your entities `anything.entity.ts` and TypeORM will pick them up. 
-- TypeORM's autosync is on by default so the db schema will be updated automatically by TypeORM
+- TypeORM's autosync is on by default so the db schema will be updated automatically by TypeORM.
 
 ### Example
 ```typescript
@@ -23,6 +23,21 @@ export class EmployeesService implements Service<Employee> {
         
     public async getAll(): Promise<Employee[]> {
         return (await this.repository).find();
+    }
+}
+
+@Controller()
+export class EmployeesController {
+    private employeesService: Service<Employee>;
+
+    constructor(employeesService: EmployeesService) {
+        this.employeesService = employeesService;
+    }
+    
+    @Get('employees')
+    public async getAllEmployees(@Request() req, @Response() res: express.Response) {
+        const employees = await this.employeesService.getAll();
+        res.status(HttpStatus.OK).json(employees);
     }
 }
 ```
