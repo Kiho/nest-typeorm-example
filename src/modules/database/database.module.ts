@@ -1,10 +1,8 @@
-import {Module, NestModule} from 'nest.js';
-import {TypeOrmDatabaseService} from "./typeOrm.database.service";
+import { Module, NestModule } from '@nestjs/common';
+import { TypeOrmDatabaseService } from "./typeOrm.database.service";
 
 @Module({
     components: [TypeOrmDatabaseService],
     exports: [TypeOrmDatabaseService]
 })
-export class DatabaseModule implements NestModule {
-    constructor(private typeOrmDatabaseService: TypeOrmDatabaseService) {}
-}
+export class DatabaseModule {}
