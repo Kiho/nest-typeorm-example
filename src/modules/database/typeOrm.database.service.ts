@@ -1,5 +1,7 @@
-import {Component, HttpException} from "nest.js";
-import {createConnection, Connection, EntityManager, Repository, ObjectType, Entity} from "typeorm";
+import { Component } from '@nestjs/common';
+import { HttpException } from '@nestjs/core';
+import { createConnection, Connection, EntityManager, Repository, ObjectType, Entity } from 'typeorm';
+import { TypeOrmDatabaseConfig } from './typeOrm.database.config';
 
 @Component()
 export class TypeOrmDatabaseService {
@@ -10,29 +12,20 @@ export class TypeOrmDatabaseService {
     private _connection: Connection;
 
     /**
+     * Abstract injection so it is possible to use several databases
+     * @param databaseConfig
+     */
+    constructor(private readonly databaseConfig: TypeOrmDatabaseConfig) {}
+
+    /**
      * An async getter for the Connection which creates the connection if needed.
      * @returns {Promise<Connection>}
      */
-    private get connection():Promise<Connection> {
+    private get connection(): Promise<Connection> {
         // return the connection if it's been created already
         if(this._connection) return Promise.resolve(this._connection);
         // otherwise create it
-        return createConnection({
-            driver: {
-                type: process.env.DB_DRIVER,
-                host: process.env.DB_HOST,
-                port: process.env.DB_PORT,
-                username: process.env.DB_USERNAME,
-                password: process.env.DB_PASSWORD,
-                database: process.env.DB_NAME
-            },
-            entities: [
-                // any entity file under src/modules
-                __dirname + "/../**/*.entity.ts"
-            ],
-            autoSchemaSync: true,
-        }).then(connection => {
-            console.log(`Connected to ${process.env.DB_DRIVER} database ${process.env.DB_NAME}.`);
+        return createConnection(this.databaseConfig.getConfiguration()).then(connection => {
             this._connection = connection;
             return connection;
         }).catch(error => {

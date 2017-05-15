@@ -1,8 +1,8 @@
-import {Controller, Get, Post, HttpStatus, Request, Response, Param, Body, Put, Delete} from 'nest.js';
-import {Service} from "../database/service.interface";
-import * as express from 'express';
-import {Employee} from "./employee.entity";
-import {EmployeesService} from "./employees.service";
+import { Response } from 'express';
+import { Controller, Get, Post, HttpStatus, Req, Res, Param, Body, Put, Delete } from '@nestjs/common';
+import { Service } from '../database/service.interface';
+import { Employee } from './employee.entity';
+import { EmployeesService } from './employees.service';
 
 @Controller()
 export class EmployeesController {
@@ -18,20 +18,20 @@ export class EmployeesController {
 
     // C
     @Post('employees')
-    public async addEmployee(@Response() res: express.Response, @Body('employee') employee) {
+    public async addEmployee(@Res() res: Response, @Body('employee') employee) {
         const addedEmployee = await this.employeesService.add(employee);
         res.status(HttpStatus.CREATED).json(addedEmployee)
     }
 
     // R
     @Get('employees')
-    public async getAllEmployees(@Request() req, @Response() res: express.Response) {
+    public async getAllEmployees(@Req() req, @Res() res: Response) {
         const employees = await this.employeesService.getAll();
         res.status(HttpStatus.OK).json(employees);
     }
 
     @Get('employees/:id')
-    public async getEmployee(@Request() req, @Response() res: express.Response, @Param('id') id) {
+    public async getEmployee(@Req() req, @Res() res: Response, @Param('id') id) {
         // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
 
@@ -40,7 +40,7 @@ export class EmployeesController {
 
     // U
     @Put('employees/:id')
-    public async replaceEmployee(@Request() req, @Response() res: express.Response, @Body('employee') employee, @Param('id') id) {
+    public async replaceEmployee(@Req() req, @Res() res: Response, @Body('employee') employee, @Param('id') id) {
         // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
         // in this case, we don't need to interact with it.
@@ -51,7 +51,7 @@ export class EmployeesController {
 
     // D
     @Delete('employees/:id')
-    public async deleteEmployee(@Request() req, @Response() res: express.Response, @Param('id') id) {
+    public async deleteEmployee(@Req() req, @Res() res: Response, @Param('id') id) {
         // EmployeeFindMiddleware attaches the found employee to the request or returns a 404
         const existingEmployee = req.employee;
 

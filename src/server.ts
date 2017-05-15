@@ -1,8 +1,8 @@
-import { NestFactory } from 'nest.js';
-import {ApplicationModule} from "./modules/application/application.module";
+import { NestFactory } from '@nestjs/core';
+import {ApplicationModule } from './modules/application/application.module';
 
 // import reflect for TypeORM
-import "reflect-metadata";
+import 'reflect-metadata';
 
 // middleware imports
 import express = require('express');

@@ -1,14 +1,18 @@
-import {Module, NestModule, RequestMethod} from 'nest.js';
-import {EmployeesController} from "./employees.controller";
-import {EmployeesService} from "./employees.service";
-import {DatabaseModule} from "../database/database.module";
-import {MiddlewaresConsumer} from "nest.js/common/interfaces/middlewares-consumer.interface";
-import {EmployeeFindMiddleware} from "./employee.find.middleware";
+import { Module, NestModule, RequestMethod, MiddlewaresConsumer, OnModuleInit } from '@nestjs/common';
+import { EmployeesController } from './employees.controller';
+import { EmployeesService } from './employees.service';
+import { DatabaseModule } from '../database/database.module';
+import { EmployeeFindMiddleware } from './employee.find.middleware';
+import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
+import { EmployeeDatabaseConfig } from './employee.database.config';
 
 @Module({
-    components: [EmployeesService],
+    modules: [DatabaseModule],
     controllers: [EmployeesController],
-    modules: [DatabaseModule]
+    components: [
+        EmployeesService,
+        { provide: TypeOrmDatabaseConfig, useClass: EmployeeDatabaseConfig },
+    ],
 })
 export class EmployeesModule implements NestModule {
     public configure(consumer: MiddlewaresConsumer) {
