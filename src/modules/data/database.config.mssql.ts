@@ -2,23 +2,26 @@ import { Component } from '@nestjs/common';
 import { ConnectionOptions } from 'typeorm';
 import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
 
-@Component()
-export class EmployeeDatabaseConfig extends TypeOrmDatabaseConfig {
+export class MsSqlDatabaseConfig extends TypeOrmDatabaseConfig {
+    protected _dirname: string;
+
     public getConfiguration(): ConnectionOptions {
-        return {
+        const entities =  __dirname + '/../../modules/**/*.entity.ts';        
+        const conn = {
             driver: {
                 type: process.env.DB_DRIVER,
                 host: process.env.DB_HOST,
                 port: process.env.DB_PORT,
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
-                database: process.env.DB_NAME
+                database: process.env.DB_NAME,
             },
             entities: [
                 // any entity file under src/modules
-                __dirname + '/*.entity.ts'
+                entities
             ],
             autoSchemaSync: true,
-        }
+        };      
+        return conn;
     }
 }

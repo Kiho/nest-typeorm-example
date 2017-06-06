@@ -12,6 +12,8 @@ import * as bodyParser from 'body-parser';
 const expressInstance = express();
 expressInstance.use(bodyParser.json());
 
+require('dotenv').config({path: './dev.env'});
+
 const app = NestFactory.create(ApplicationModule, expressInstance);
 app.listen(
     process.env.PORT,

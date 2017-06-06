@@ -2,6 +2,9 @@
 
 Example usage of [TypeORM](https://github.com/typeorm/typeorm) with the [Nest](https://github.com/kamilmysliwiec/nest) framework.
 
+### Updates
+- Unlike original project, there is only one controller to handle all incomming API calls.
+
 ### Overview
 
 - TypeORM is implemented by the `database` Nest module, the same as any other piece of user code should be in a Nest application.

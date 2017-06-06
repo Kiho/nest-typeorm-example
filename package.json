@@ -12,6 +12,8 @@
     "@nestjs/microservices": "^2.0.4",
     "@nestjs/websockets": "^2.0.3",
     "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "mssql": "^3.3.0",
     "mysql": "^2.13.0",
     "redis": "^2.7.1",
     "reflect-metadata": "0.1.10",
