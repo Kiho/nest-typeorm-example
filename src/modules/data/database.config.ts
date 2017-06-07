@@ -2,7 +2,7 @@ import { Component } from '@nestjs/common';
 import { ConnectionOptions } from 'typeorm';
 import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
 
-export class MsSqlDatabaseConfig extends TypeOrmDatabaseConfig {
+export class DatabaseConfig extends TypeOrmDatabaseConfig {
     protected _dirname: string;
 
     public getConfiguration(): ConnectionOptions {

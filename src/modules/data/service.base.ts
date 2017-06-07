@@ -21,8 +21,8 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
     }
 
     /**
-     * Internal async getter for the Employee Repository - `getRepository()` is async because it may need to connect.
-     * @returns {Promise<Repository<Employee>>}
+     * Internal async getter for the Entity Repository - `getRepository()` is async because it may need to connect.
+     * @returns {Promise<Repository<Entity>>}
      */
     private get repository(): Promise<Repository<T>> {
         return this.databaseService.getRepository(this.entityType);
@@ -49,14 +49,13 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
         return [];
     }
 
-    // [new Employee('John Doe', 30), new Employee('Jane Doe', 40)]
     // C
-    public async add(employee: T): Promise<T> {
-        return (await this.repository).persist(employee);
+    public async add(item: T): Promise<T> {
+        return (await this.repository).persist(item);
     }
 
-    public async addAll(entities: T[]): Promise<T[]> {
-        return (await this.repository).persist(entities);
+    public async addAll(list: T[]): Promise<T[]> {
+        return (await this.repository).persist(list);
     }
 
     // R
@@ -69,12 +68,12 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
     }
 
     // U
-    public async update(employee: T): Promise<T> {
-        return (await this.repository).persist(employee);
+    public async update(item: T): Promise<T> {
+        return (await this.repository).persist(item);
     }
 
     // D
-    public async remove(employee: T): Promise<T> {
-        return (await this.repository).remove(employee);
+    public async remove(item: T): Promise<T> {
+        return (await this.repository).remove(item);
     }
 }

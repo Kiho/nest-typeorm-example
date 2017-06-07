@@ -5,14 +5,14 @@ import { DataFindMiddleware } from './data.find.middleware';
 import { EmployeesService } from '../employees/employees.service';
 import { DatabaseModule } from '../database/database.module';
 import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
-import { MsSqlDatabaseConfig } from './database.config.mssql';
+import { DatabaseConfig } from './database.config';
 
 @Module({
     modules: [DatabaseModule],
     controllers: [DataController],
     components: [
         Registry,
-        { provide: TypeOrmDatabaseConfig, useClass: MsSqlDatabaseConfig },
+        { provide: TypeOrmDatabaseConfig, useClass: DatabaseConfig },
     ],
 })
 export class DataModule implements NestModule {
