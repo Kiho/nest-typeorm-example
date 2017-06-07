@@ -1,4 +1,4 @@
-import { IEntity } from '../base/entity.interface';
+import { IEntity } from '../data/entity.interface';
 
 export interface Service<T> {
     add(entity: T): Promise<T>;
