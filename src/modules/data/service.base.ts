@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { Service } from '../database/service.interface';
 import { IEntity } from './entity.interface';
 
-@Component()
 export class ServiceBase<T extends IEntity> implements Service<T> {
 
     /**
@@ -17,7 +16,7 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
      */
     constructor(protected databaseService: TypeOrmDatabaseService, private entityType) {
         //noinspection JSIgnoredPromiseFromCall
-        this.seed();
+        // this.seed();
     }
 
     /**
@@ -35,12 +34,14 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
      *
      * @returns {Promise<void>}
      */
-    protected async seed() {
+    public async seed() {
         const entitiesRepository = await this.repository;
         let count = await entitiesRepository.count();
-        if(count == 0) {
-            const entities = await entitiesRepository.persist(this.getSeedData());
-            console.log('Seeded Entities.');
+        if (count == 0) {
+            const seedData = this.getSeedData();
+            console.log('Seed Entities.', this.entityType);
+            const entities = await entitiesRepository.persist(seedData);
+            console.log('Seeded Entities.', this.entityType);
             console.log(entities);
         }
     }
