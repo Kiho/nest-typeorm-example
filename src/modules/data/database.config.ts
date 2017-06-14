@@ -5,7 +5,7 @@ import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
 export class DatabaseConfig extends TypeOrmDatabaseConfig {
     protected _dirname: string;
 
-    public getConfiguration(): ConnectionOptions {
+    public getConfiguration(): any {
         const entities =  __dirname + '/../../modules/**/*.entity.ts';        
         const conn = {
             driver: {

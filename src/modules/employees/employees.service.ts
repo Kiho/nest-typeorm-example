@@ -9,8 +9,6 @@ export class EmployeesService extends ServiceBase<Employee> {
 
     constructor(databaseService: TypeOrmDatabaseService) {
         super(databaseService, Employee);
-
-        this.seed();
     }
 
     protected getSeedData(): Employee[] {

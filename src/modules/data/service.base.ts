@@ -16,7 +16,7 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
      */
     constructor(protected databaseService: TypeOrmDatabaseService, private entityType) {
         //noinspection JSIgnoredPromiseFromCall
-        // this.seed();
+        this.seed();
     }
 
     /**
@@ -39,10 +39,11 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
         let count = await entitiesRepository.count();
         if (count == 0) {
             const seedData = this.getSeedData();
-            console.log('Seed Entities.', this.entityType);
+            console.log('Seed Entities.', this.entityType.name);
             const entities = await entitiesRepository.persist(seedData);
-            console.log('Seeded Entities.', this.entityType);
-            console.log(entities);
+            // const entities = await this.databaseService.saveTransaction(seedData);
+            console.log('Seeded Entities.', this.entityType.name);
+            // console.log(entities);
         }
     }
 
