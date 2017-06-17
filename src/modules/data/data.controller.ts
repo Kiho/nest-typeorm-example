@@ -40,6 +40,7 @@ export class DataController {
     // U
     @Put('api/:entity/:id')
     public async replaceData(@Req() req, @Res() res: Response, @Body('data') data, @Param('entity') entity, @Param('id') id) {
+        // console.log('replaceData', entity, data);
         // DataFindMiddleware attaches the found data to the request or returns a 404
         const existingData = req.data;
         // in this case, we don't need to interact with it.

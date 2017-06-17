@@ -36,12 +36,12 @@ export class TypeOrmDatabaseService {
 
         if (this._pending) {
             // Need to wait untill previous call is resolved, otherwise will throw transaction error
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 500; i++) {
                 if (!this._pending){
                     break;
                 }
                 // await is converting Promise<number> into number
-                const count:number = await delay(100, i);
+                const count: number = await delay(50, i);
                 console.log('delay', count);
             }
         }

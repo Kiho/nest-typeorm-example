@@ -53,6 +53,10 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
 
     // C
     public async add(item: T): Promise<T> {
+        if (item.id !== undefined) {
+            delete item.id;
+        }
+        // console.log('add', this.entityType, item);
         return (await this.repository).persist(item);
     }
 
@@ -71,6 +75,7 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
 
     // U
     public async update(item: T): Promise<T> {
+        // console.log('update', this.entityType, item);
         return (await this.repository).persist(item);
     }
 

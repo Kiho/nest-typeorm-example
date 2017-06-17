@@ -12,11 +12,11 @@ const loc = new ServiceLocator();
 export class Registry {
     constructor(private _databaseService: TypeOrmDatabaseService) {
         console.log('register departments');
-        loc.register('departments', new DepartmentsService(_databaseService));
+        loc.register('department', new DepartmentsService(_databaseService));
 
         console.log('register employees');
         const employeesService = new EmployeesService(_databaseService);
-        loc.register('employees', employeesService);
+        loc.register('employee', employeesService);
         console.log('register done');
     }
 
