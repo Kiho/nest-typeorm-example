@@ -53,7 +53,7 @@ export class ServiceBase<T extends IEntity> implements Service<T> {
 
     // C
     public async add(item: T): Promise<T> {
-        if (item.id !== undefined) {
+        if (item.id !== undefined && item.id == 0) {
             delete item.id;
         }
         // console.log('add', this.entityType, item);
