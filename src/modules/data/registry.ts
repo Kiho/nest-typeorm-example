@@ -10,13 +10,19 @@ const loc = new ServiceLocator();
 
 @Component()
 export class Registry {
-    constructor(private _databaseService: TypeOrmDatabaseService) {
+    constructor(databaseService: TypeOrmDatabaseService) {
+        this.register(databaseService);
+    }
+
+    private async register(databaseService: TypeOrmDatabaseService){
+        await databaseService.createConnection();
+
         console.log('register departments');
-        loc.register('department', new DepartmentsService(_databaseService));
+        loc.register('department', new DepartmentsService(databaseService));
 
         console.log('register employees');
-        const employeesService = new EmployeesService(_databaseService);
-        loc.register('employee', employeesService);
+        loc.register('employee', new EmployeesService(databaseService));
+        
         console.log('register done');
     }
 

@@ -3,14 +3,6 @@ import { HttpException } from '@nestjs/core';
 import { createConnection, Connection, EntityManager, Repository, ObjectType, Entity } from 'typeorm';
 import { TypeOrmDatabaseConfig } from './typeOrm.database.config';
 
-function delay(milliseconds: number, count: number): Promise<number> {
-    return new Promise<number>(resolve => {
-            setTimeout(() => {
-                resolve(count);
-            }, milliseconds);
-        });
-}
-
 @Component()
 export class TypeOrmDatabaseService {
 
@@ -19,7 +11,16 @@ export class TypeOrmDatabaseService {
      */
     private _connection: Connection;
 
-    private _pending = false;
+    public async createConnection(): Promise<Connection> {
+        return createConnection(this.databaseConfig.getConfiguration()).then(connection => {
+            this._connection = connection;        
+            console.log('done: createConnection');
+            return connection;
+        }).catch(error => {
+            console.log('error: createConnection', error);
+            throw error;
+        });
+    }    
 
     /**
      * Abstract injection so it is possible to use several databases
@@ -31,38 +32,8 @@ export class TypeOrmDatabaseService {
      * An async getter for the Connection which creates the connection if needed.
      * @returns {Promise<Connection>}
      */
-    public async getConnection(): Promise<Connection> {
-        console.log('start: getConnection');
-
-        if (this._pending) {
-            // Need to wait untill previous call is resolved, otherwise will throw transaction error
-            for (let i = 0; i < 500; i++) {
-                if (!this._pending){
-                    break;
-                }
-                // await is converting Promise<number> into number
-                const count: number = await delay(50, i);
-                console.log('delay', count);
-            }
-        }
-
-        if (this._connection) {            
-            console.log('resolve: getConnection');            
-            return Promise.resolve(this._connection);
-        }
-
-        this._pending = true;
-        console.log('set pending: createConnection');
-        return createConnection(this.databaseConfig.getConfiguration()).then(connection => {
-            this._connection = connection;
-            this._pending = false;          
-            console.log('done: createConnection');
-            return connection;
-        }).catch(error => {
-            this._pending = false;
-            console.log('error: createConnection', error);
-            throw error;
-        });
+    public get Connection(): Promise<Connection> {           
+        return Promise.resolve(this._connection);
     }
 
     /**
@@ -72,7 +43,7 @@ export class TypeOrmDatabaseService {
      * @returns {Promise<EntityManager>}
      */
     public async getEntityManager(): Promise<EntityManager> {
-        return (await this.getConnection()).entityManager;
+        return (await this.Connection).entityManager;
     }
 
     /**
@@ -83,6 +54,6 @@ export class TypeOrmDatabaseService {
      * @returns {Promise<Repository<T>>}
      */
     public async getRepository<T>(entityClassOrName: ObjectType<T> | string): Promise<Repository<T>> {
-        return (await this.getConnection()).getRepository<T>(entityClassOrName);
+        return (await this.Connection).getRepository<T>(entityClassOrName);
     }
 }
