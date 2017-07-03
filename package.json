@@ -7,17 +7,17 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@nestjs/common": "^2.0.3",
-    "@nestjs/core": "^2.0.5",
-    "@nestjs/microservices": "^2.0.4",
-    "@nestjs/websockets": "^2.0.3",
+    "@nestjs/common": "^3.0.0",
+    "@nestjs/core": "^3.0.0",
+    "@nestjs/microservices": "^3.0.0",
+    "@nestjs/websockets": "^3.0.0",
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
     "mssql": "^3.3.0",
     "mysql": "^2.13.0",
     "redis": "^2.7.1",
     "reflect-metadata": "0.1.10",
-    "rxjs": "^5.4.0",
+    "rxjs": "^5.4.1",
     "typeorm": "0.1.0-alpha.8",
     "typescript": "^2.2.1"
   },

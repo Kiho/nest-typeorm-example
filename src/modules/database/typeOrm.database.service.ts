@@ -33,7 +33,16 @@ export class TypeOrmDatabaseService {
      * @returns {Promise<Connection>}
      */
     public get Connection(): Promise<Connection> {           
-        return Promise.resolve(this._connection);
+        // return the connection if it's been created already
+        if(this._connection) return Promise.resolve(this._connection);
+        // otherwise create it
+        return createConnection(this.databaseConfig.getConfiguration()).then(connection => {
+            this._connection = connection;
+            return connection;
+        }).catch(error => {
+            console.log(error);
+            throw error;
+        });
     }
 
     /**
