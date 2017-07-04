@@ -2,21 +2,21 @@ import { Response } from 'express';
 import { Controller, Get, Post, HttpStatus, Req, Res, Param, Body, Put, Delete,
     UseFilters, UsePipes   } from '@nestjs/common';
 import { IService } from '../database/service.interface';
-import { UsersService } from './user.service';
+import { UserService } from './user.service';
 import { CustomExceptionFilter } from '../common/exception.filter';
 import { ValidatorPipe } from '../common/validator.pipe';
 import { User } from './user.entity';
 import { Registry } from '../data/registry';
 
-@Controller('users')
+@Controller('user')
 @UseFilters(new CustomExceptionFilter())
-export class UsersController {
+export class UserController {
     constructor(private _registry: Registry) {
 
     }
 
-    get Service(): UsersService {
-        return this._registry.getService('user') as UsersService;
+    get Service(): UserService {
+        return this._registry.getService('user') as UserService;
     }
 
     @Get()

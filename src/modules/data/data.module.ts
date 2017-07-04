@@ -3,7 +3,7 @@ import { DataController } from './data.controller';
 import { Registry } from './registry';
 import { DataFindMiddleware } from './data.find.middleware';
 
-import { UsersController } from '../users/user.controller';
+import { UserController } from '../users/user.controller';
 import { AuthMiddleware } from '../users/auth.middleware';
 
 import { DatabaseModule } from '../database/database.module';
@@ -12,7 +12,7 @@ import { DatabaseConfig } from './database.config';
 
 @Module({
     modules: [DatabaseModule],
-    controllers: [DataController, UsersController],
+    controllers: [DataController, UserController],
     components: [
         Registry,
         { provide: TypeOrmDatabaseConfig, useClass: DatabaseConfig },
@@ -20,7 +20,7 @@ import { DatabaseConfig } from './database.config';
 })
 export class DataModule implements NestModule {
     public configure(consumer: MiddlewaresConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes(UsersController);
+        consumer.apply(AuthMiddleware).forRoutes(UserController);
         consumer.apply(DataFindMiddleware).forRoutes({
             path: 'api/:entity/:id', method: RequestMethod.ALL
         });

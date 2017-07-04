@@ -1,4 +1,4 @@
-import { UsersService } from './user.service';
+import { UserService } from './user.service';
 import { Middleware, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { Registry } from '../data/registry';
@@ -9,8 +9,8 @@ export class AuthMiddleware implements NestMiddleware {
 
     }
 
-    get Service(): UsersService {
-        return this._registry.getService('user') as UsersService;
+    get Service(): UserService {
+        return this._registry.getService('user') as UserService;
     }
 
     public resolve(): (req, res, next) => void {

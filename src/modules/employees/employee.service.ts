@@ -5,7 +5,7 @@ import { Employee } from './employee.entity';
 import { ServiceBase } from '../data/service.base';
 
 @Component()
-export class EmployeesService extends ServiceBase<Employee> {
+export class EmployeeService extends ServiceBase<Employee> {
 
     constructor(databaseService: TypeOrmDatabaseService) {
         super(databaseService, Employee);

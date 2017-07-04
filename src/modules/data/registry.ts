@@ -3,9 +3,9 @@ import { TypeOrmDatabaseService } from '../database/typeOrm.database.service';
 import { IService } from '../database/service.interface';
 import { ServiceLocator } from './service.locator';
 
-import { EmployeesService } from '../employees/employees.service';
-import { DepartmentsService } from '../employees/departments.service';
-import { UsersService } from '../users/user.service';
+import { EmployeeService } from '../employees/employee.service';
+import { DepartmentService } from '../employees/department.service';
+import { UserService } from '../users/user.service';
 
 const loc = new ServiceLocator();
 
@@ -20,13 +20,13 @@ export class Registry {
         await databaseService.createConnection();
 
         console.log('register departments');
-        loc.register('department', new DepartmentsService(databaseService));
+        loc.register('department', new DepartmentService(databaseService));
 
         console.log('register employees');
-        loc.register('employee', new EmployeesService(databaseService));
+        loc.register('employee', new EmployeeService(databaseService));
         
         console.log('register users');
-        loc.register('user', new UsersService(databaseService));
+        loc.register('user', new UserService(databaseService));
 
         console.log('register done');
     }
