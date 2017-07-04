@@ -18,7 +18,7 @@ export class DataFindMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
             const { id, entity }= req.params;
-            // console.log("req.params.entity", req.params.entity);
+            console.log("req.params - id, entity: ", id, entity);
             // if this middleware is misapplied to a route without ID, params.id would be null
             if (!id || !entity) {
                 throw new HttpException(

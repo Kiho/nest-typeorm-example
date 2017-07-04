@@ -35,19 +35,10 @@ export class TypeOrmDatabaseService {
      */
     public get Connection(): Promise<Connection> {           
         // return the connection if it's been created already
-        if(this._connection) 
+        if (this._connection) 
             return Promise.resolve(this._connection);
-
-        console.log('Connection(): createConnection');
+        console.warn('Connection(): connection was not created');
         return null;
-        // otherwise create it
-        // return createConnection(this.databaseConfig.getConfiguration()).then(connection => {
-        //     this._connection = connection;
-        //     return connection;
-        // }).catch(error => {
-        //     console.log(error);
-        //     throw error;
-        // });
     }
 
     /**
