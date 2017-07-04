@@ -17,19 +17,25 @@ export class DataFindMiddleware implements NestMiddleware {
 
     resolve() {
         return async (req, res, next) => {
+            const { id, entity }= req.params;
             // console.log("req.params.entity", req.params.entity);
             // if this middleware is misapplied to a route without ID, params.id would be null
-            if (!req.params.id || !req.params.entity) {
+            if (!id || !entity) {
                 throw new HttpException(
                     { error: 'Oops, something went wrong.' }, 
                     HttpStatus.INTERNAL_SERVER_ERROR
                 );
             } 
+            
+            if (entity == 'user') {
+                // Handle user with AuthMiddleware, so we should not see user here
+                throw new HttpException('Invalid route.', 400);
+            }
 
-            const service = this.getService(req.params.entity);
-            const obj = await service.get(req.params.id);
+            const service = this.getService(entity);
+            const obj = await service.get(id);
             if (!obj) {
-                throw new HttpException(req.params.entity +' not found.', 404);
+                throw new HttpException(entity +' not found.', 404);
             }
             // console.log("resolve obj", obj);
             req.data = obj;

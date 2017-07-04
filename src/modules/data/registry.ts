@@ -13,23 +13,20 @@ const loc = new ServiceLocator();
 @Component()
 export class Registry {
     constructor(private databaseService: TypeOrmDatabaseService) {
-        console.log('register constructor');
         this.register(databaseService);
     }
 
     private async register(databaseService: TypeOrmDatabaseService) {
         await databaseService.createConnection();
 
-        console.log('register departments');
-        loc.register('department', new DepartmentService(databaseService));
-
-        console.log('register employees');
-        loc.register('employee', new EmployeeService(databaseService));
+        const services = [
+            new DepartmentService(databaseService),
+            new EmployeeService(databaseService),
+            new UserService(databaseService),
+        ];
         
-        console.log('register users');
-        loc.register('user', new UserService(databaseService));
-
-        console.log('register done');
+        services.forEach(x => loc.register(x.name, x));
+        console.log('done: register', services.map(x => x.name));
     }
 
     public getService(entity: EntityType): IService {

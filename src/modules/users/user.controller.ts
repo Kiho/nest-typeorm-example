@@ -8,7 +8,7 @@ import { ValidatorPipe } from '../common/validator.pipe';
 import { User } from './user.entity';
 import { Registry } from '../data/registry';
 
-@Controller('user')
+@Controller('api/user')
 @UseFilters(new CustomExceptionFilter())
 export class UserController {
     constructor(private _registry: Registry) {

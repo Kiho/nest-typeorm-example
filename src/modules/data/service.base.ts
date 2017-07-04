@@ -2,9 +2,11 @@ import { Component } from '@nestjs/common';
 import { TypeOrmDatabaseService } from '../database/typeOrm.database.service';
 import { Repository } from 'typeorm';
 import { Service, IService } from '../database/service.interface';
-import { IEntity } from './entity.interface';
+import { IEntity, EntityType } from './entity.interface';
 
 export class ServiceBase<T extends IEntity> implements Service<T>, IService {
+
+    public name: EntityType;
 
     /**
      * Simple constructor - notice the injection of the TypeOrmDatabaseService instance.
@@ -14,7 +16,8 @@ export class ServiceBase<T extends IEntity> implements Service<T>, IService {
      *
      * @param databaseService
      */
-    constructor(protected databaseService: TypeOrmDatabaseService, private entityType) {
+    constructor(protected databaseService: TypeOrmDatabaseService, public entityType) {
+        this.name = this.entityType.name.toLowerCase();
         //noinspection JSIgnoredPromiseFromCall
         this.seed();
     }
