@@ -1,10 +1,10 @@
 import { Component } from '@nestjs/common';
 import { TypeOrmDatabaseService } from '../database/typeOrm.database.service';
 import { Repository } from 'typeorm';
-import { Service } from '../database/service.interface';
+import { Service, IService } from '../database/service.interface';
 import { IEntity } from './entity.interface';
 
-export class ServiceBase<T extends IEntity> implements Service<T> {
+export class ServiceBase<T extends IEntity> implements Service<T>, IService {
 
     /**
      * Simple constructor - notice the injection of the TypeOrmDatabaseService instance.

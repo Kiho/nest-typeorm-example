@@ -2,6 +2,7 @@ import { Middleware, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { IService } from '../database/service.interface';
 import { Registry } from './registry';
+import { EntityType } from './entity.interface';
 
 @Middleware()
 export class DataFindMiddleware implements NestMiddleware {
@@ -10,7 +11,7 @@ export class DataFindMiddleware implements NestMiddleware {
 
     }
 
-    getService(entity: string): IService {
+    getService(entity: EntityType): IService {
         return this._registry.getService(entity);
     }
 

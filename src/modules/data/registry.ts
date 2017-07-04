@@ -6,6 +6,7 @@ import { ServiceLocator } from './service.locator';
 import { EmployeeService } from '../employees/employee.service';
 import { DepartmentService } from '../employees/department.service';
 import { UserService } from '../users/user.service';
+import { EntityType } from './entity.interface';
 
 const loc = new ServiceLocator();
 
@@ -31,7 +32,7 @@ export class Registry {
         console.log('register done');
     }
 
-    public getService(entity: string): IService {
+    public getService(entity: EntityType): IService {
         return loc.resolve(entity);
     }
 }

@@ -3,6 +3,7 @@ import { Controller, Get, Post, HttpStatus, Req, Res, Param, Body, Put, Delete }
 import { IService } from '../database/service.interface';
 
 import { Registry } from './registry';
+import { EntityType } from './entity.interface';
 
 @Controller()
 export class DataController {
@@ -11,7 +12,7 @@ export class DataController {
 
     }
 
-    getService(entity: string): IService {
+    getService(entity: EntityType): IService {
         return this._registry.getService(entity);
     }
 

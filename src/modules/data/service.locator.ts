@@ -9,6 +9,9 @@
  * This allows you to replace the concrete implementation of the dependency without modifying the classes.
  */
 
+import { IService } from '../database/service.interface';
+import { EntityType } from './entity.interface';
+
 /**
  * @class Describes a way to register services and locate them.
  * @name ServiceLocator
@@ -27,7 +30,7 @@ export class ServiceLocator {
      * @param {String} key Service instance identifier.
      * @param {Object} service Service instance.
      */
-    register(key, service) {
+    register(key: EntityType, service: IService) {
         this.services[key] = service;
     }
 
@@ -37,7 +40,7 @@ export class ServiceLocator {
      * @param {String} key Service instance identifier.
      * @returns {Object} Service instance.
      */
-    resolve(key) {
+    resolve(key: EntityType): IService {
         return this.services[key];
     }
 
