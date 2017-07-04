@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Component, Shared } from '@nestjs/common';
 import { TypeOrmDatabaseService } from '../database/typeOrm.database.service';
 import { User } from './user.entity';
 

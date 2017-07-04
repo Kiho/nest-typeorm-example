@@ -5,16 +5,18 @@ import { ServiceLocator } from './service.locator';
 
 import { EmployeesService } from '../employees/employees.service';
 import { DepartmentsService } from '../employees/departments.service';
+import { UsersService } from '../users/user.service';
 
 const loc = new ServiceLocator();
 
 @Component()
 export class Registry {
-    constructor(databaseService: TypeOrmDatabaseService) {
+    constructor(private databaseService: TypeOrmDatabaseService) {
+        console.log('register constructor');
         this.register(databaseService);
     }
 
-    private async register(databaseService: TypeOrmDatabaseService){
+    private async register(databaseService: TypeOrmDatabaseService) {
         await databaseService.createConnection();
 
         console.log('register departments');
@@ -23,6 +25,9 @@ export class Registry {
         console.log('register employees');
         loc.register('employee', new EmployeesService(databaseService));
         
+        console.log('register users');
+        loc.register('user', new UsersService(databaseService));
+
         console.log('register done');
     }
 

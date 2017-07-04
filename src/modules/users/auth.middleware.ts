@@ -1,15 +1,23 @@
 import { UsersService } from './user.service';
 import { Middleware, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
+import { Registry } from '../data/registry';
 
 @Middleware()
 export class AuthMiddleware implements NestMiddleware {
-    constructor(private usersService: UsersService) {}
+    constructor(private _registry: Registry) {
+
+    }
+
+    get Service(): UsersService {
+        return this._registry.getService('user') as UsersService;
+    }
 
     public resolve(): (req, res, next) => void {
         return async (req, res, next) => {
             const username = req.headers['x-access-token'];
-            const users = await this.usersService.getAll();
+            const users = await this.Service.getAll();
+            console.log('AuthMiddleware', users);
             const user = users.find(({ name }) => name === username);
             if (!user) {
                 throw new HttpException('User not found.', 401);
