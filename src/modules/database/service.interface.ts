@@ -1,6 +1,8 @@
 import { IEntity, EntityType } from '../data/entity.interface';
 
 export interface Service<T> {
+    seed(): void;
+
     add(entity: T): Promise<T>;
     getAll(): Promise<T[]>;
     get(id: number): Promise<T>;
@@ -10,7 +12,8 @@ export interface Service<T> {
 
 export interface IService {
     name: EntityType;
-
+    seed(): void;
+    
     add(entity: IEntity): Promise<IEntity>;
     getAll(): Promise<IEntity[]>;
     get(id: number): Promise<IEntity>;

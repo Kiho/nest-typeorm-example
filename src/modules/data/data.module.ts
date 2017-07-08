@@ -10,11 +10,18 @@ import { DatabaseModule } from '../database/database.module';
 import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
 import { DatabaseConfig } from './database.config';
 
+import { EmployeeService } from '../employees/employee.service';
+import { DepartmentService } from '../employees/department.service';
+import { UserService } from '../users/user.service';
+
 @Module({
     modules: [DatabaseModule],
     controllers: [DataController, UserController],
     components: [
         ServiceRegistry,
+        DepartmentService,
+        EmployeeService,
+        UserService,
         { provide: TypeOrmDatabaseConfig, useClass: DatabaseConfig },
     ],
 })
