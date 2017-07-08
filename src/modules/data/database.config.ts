@@ -3,8 +3,6 @@ import { ConnectionOptions } from 'typeorm';
 import { TypeOrmDatabaseConfig } from '../database/typeOrm.database.config';
 
 export class DatabaseConfig extends TypeOrmDatabaseConfig {
-    protected _dirname: string;
-
     public getConfiguration() {
         const entities =  __dirname + '/../../modules/**/*.entity.ts';        
         const conn: ConnectionOptions = {
