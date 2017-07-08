@@ -1,13 +1,13 @@
 import { Middleware, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { IService } from '../database/service.interface';
-import { Registry } from './registry';
+import { ServiceRegistry } from './service.registry';
 import { EntityType } from './entity.interface';
 
 @Middleware()
 export class DataFindMiddleware implements NestMiddleware {
 
-    constructor(private _registry: Registry) {
+    constructor(private _registry: ServiceRegistry) {
 
     }
 

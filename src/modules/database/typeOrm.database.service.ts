@@ -27,7 +27,9 @@ export class TypeOrmDatabaseService {
      * Abstract injection so it is possible to use several databases
      * @param databaseConfig
      */
-    constructor(private readonly databaseConfig: TypeOrmDatabaseConfig) {}
+    constructor(private readonly databaseConfig: TypeOrmDatabaseConfig) {
+        // this.createConnection();
+    }
 
     /**
      * An async getter for the Connection which creates the connection if needed.

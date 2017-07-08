@@ -6,12 +6,12 @@ import { UserService } from './user.service';
 import { CustomExceptionFilter } from '../common/exception.filter';
 import { ValidatorPipe } from '../common/validator.pipe';
 import { User } from './user.entity';
-import { Registry } from '../data/registry';
+import { ServiceRegistry } from '../data/service.registry';
 
 @Controller('api/user')
 @UseFilters(new CustomExceptionFilter())
 export class UserController {
-    constructor(private _registry: Registry) {
+    constructor(private _registry: ServiceRegistry) {
 
     }
 

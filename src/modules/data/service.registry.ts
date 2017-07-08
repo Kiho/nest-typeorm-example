@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Component, OnModuleInit } from '@nestjs/common';
 import { TypeOrmDatabaseService } from '../database/typeOrm.database.service';
 import { IService } from '../database/service.interface';
 import { ServiceLocator } from './service.locator';
@@ -11,9 +11,13 @@ import { EntityType } from './entity.interface';
 const loc = new ServiceLocator();
 
 @Component()
-export class Registry {
+export class ServiceRegistry implements OnModuleInit {
     constructor(private databaseService: TypeOrmDatabaseService) {
-        this.register(databaseService);
+        
+    }
+
+    onModuleInit() {
+        this.register(this.databaseService);
     }
 
     private async register(databaseService: TypeOrmDatabaseService) {
@@ -25,7 +29,10 @@ export class Registry {
             new UserService(databaseService),
         ];
         
-        services.forEach(x => loc.register(x.name, x));
+        services.forEach(x => {
+            loc.register(x.name, x);
+            x.seed();
+        });
         console.log('done: register', services.map(x => x.name));
     }
 

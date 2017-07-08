@@ -1,6 +1,6 @@
 import { Module, NestModule, RequestMethod, MiddlewaresConsumer, OnModuleInit } from '@nestjs/common';
 import { DataController } from './data.controller';
-import { Registry } from './registry';
+import { ServiceRegistry } from './service.registry';
 import { DataFindMiddleware } from './data.find.middleware';
 
 import { UserController } from '../users/user.controller';
@@ -14,7 +14,7 @@ import { DatabaseConfig } from './database.config';
     modules: [DatabaseModule],
     controllers: [DataController, UserController],
     components: [
-        Registry,
+        ServiceRegistry,
         { provide: TypeOrmDatabaseConfig, useClass: DatabaseConfig },
     ],
 })

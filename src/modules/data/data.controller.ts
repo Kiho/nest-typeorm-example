@@ -2,13 +2,13 @@ import { Response } from 'express';
 import { Controller, Get, Post, HttpStatus, Req, Res, Param, Body, Put, Delete } from '@nestjs/common';
 import { IService } from '../database/service.interface';
 
-import { Registry } from './registry';
+import { ServiceRegistry } from './service.registry';
 import { EntityType } from './entity.interface';
 
 @Controller()
 export class DataController {
 
-    constructor(private _registry: Registry) {
+    constructor(private _registry: ServiceRegistry) {
 
     }
 

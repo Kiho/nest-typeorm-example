@@ -1,11 +1,11 @@
 import { UserService } from './user.service';
 import { Middleware, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
-import { Registry } from '../data/registry';
+import { ServiceRegistry } from '../data/service.registry';
 
 @Middleware()
 export class AuthMiddleware implements NestMiddleware {
-    constructor(private _registry: Registry) {
+    constructor(private _registry: ServiceRegistry) {
 
     }
 
