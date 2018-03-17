@@ -165,4 +165,6 @@ typings/
 # dotenv environment variables file
 prod.env
 dev.env
+ormconfig.json
+
 
