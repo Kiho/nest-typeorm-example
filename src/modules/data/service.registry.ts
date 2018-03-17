@@ -5,7 +5,6 @@ import { ServiceLocator } from './service.locator';
 
 import { EmployeeService } from '../employees/employee.service';
 import { DepartmentService } from '../employees/department.service';
-import { UserService } from '../users/user.service';
 
 import { EntityType } from './entity.interface';
 
@@ -17,8 +16,7 @@ export class ServiceRegistry implements OnModuleInit {
 
     constructor(private databaseService: TypeOrmDatabaseService, 
         departmentService: DepartmentService,
-        employeeService: EmployeeService,
-        userService: UserService) {
+        employeeService: EmployeeService) {
         
         this.services = [...arguments].splice(1) as IService[];
     }
